@@ -1,0 +1,49 @@
+@include mobile {
+  #mainButton {
+    i {
+      color: $font-color;
+    }
+
+    button.dropButton {
+      padding: 0;
+      position: absolute;
+      right: 24px;
+      height: 40px;
+      width: 40px;
+      background: $primary-color;
+      border: 0;
+      border-radius: 50%;
+      box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.4);
+      transform: translateY(50px);
+      opacity: 0;
+      visibility: hidden;
+      &[name="addButton"] {
+        bottom: 90px;
+      }
+      &[name="shareButton"] {
+        bottom: 150px;
+      }
+    }
+    #{&}-main {
+      padding: 0;
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+      height: 50px;
+      width: 50px;
+      background: $primary-color;
+      border: 0;
+      border-radius: 50%;
+      box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.4);
+
+      .bars {
+        display: block;
+        width: 50%;
+        border: 1.5px solid $font-color;
+        margin: 3px auto;
+        position: relative;
+        @include transition;
+      }
+    }
+  }
+}

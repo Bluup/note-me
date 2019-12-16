@@ -1,0 +1,60 @@
+@include mobile {
+  #notes {
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    background: linear-gradient(0deg, $bg-color 98%, $bg-color-medium 2%);
+
+    .notesContainer {
+      padding: 15px;
+      height: 60vh;
+      overflow: auto;
+      -ms-overflow-style: none;
+      &::-webkit-scrollbar {
+        display: none;
+      }
+
+      & > div:not(:first-child) {
+        margin-top: -20px;
+      }
+
+      .fullLoader {
+        display: flex;
+        flex-flow: column nowrap;
+        justify-content: center;
+        align-items: center;
+        height: 50vh;
+      }
+
+      .note {
+        display: block;
+        height: 88px;
+        width: 100%;
+        box-shadow: 0 -3px 6px -2px rgba(0, 0, 0, 0.2);
+        border-radius: 8px 8px 0 0;
+        padding: 20px;
+        overflow: hidden;
+        cursor: pointer;
+        background: $bg-color;
+        position: relative;
+        .backdrop {
+          height: 88px;
+          width: 100%;
+          top: 0;
+          left: 0;
+          background: linear-gradient(
+            0deg,
+            white 20%,
+            rgba(240, 240, 240, 0) 80%
+          );
+          position: absolute;
+        }
+
+        h4 {
+          text-transform: capitalize;
+          color: $primary-color;
+        }
+      }
+    }
+  }
+}

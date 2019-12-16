@@ -1,0 +1,17 @@
+@include mobile {
+  #searchBar {
+    margin: 30px auto;
+    padding: 0 15px;
+    #{&}-input {
+      display: block;
+      width: 100%;
+      border: 0;
+      background: $bg-color-medium;
+      color: $font-color-muted;
+      text-transform: capitalize;
+      padding: 8px 20px;
+      border-radius: 20px;
+      font-size: 14px;
+    }
+  }
+}

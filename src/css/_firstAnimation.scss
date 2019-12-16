@@ -1,0 +1,18 @@
+#firstAnimation {
+  background: #fafafa;
+  position: fixed;
+  z-index: 1000;
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  justify-content: center;
+  span {
+    font-size: 10vh;
+    color: $font-color-dark;
+    font-weight: bold;
+    transform: translateY(30px) rotate(-10deg);
+    opacity: 0;
+  }
+}

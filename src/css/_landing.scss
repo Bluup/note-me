@@ -1,0 +1,35 @@
+@include mobile {
+  #landing_nav {
+    text-align: center;
+    padding: 20px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    a {
+      text-decoration: none;
+    }
+  }
+  .landing {
+    padding-top: 10vh;
+    min-height: 100vh;
+    display: flex;
+    flex-flow: column wrap;
+    align-items: center;
+    justify-content: center;
+
+    &_information {
+      font-family: "Montserrat", sans-serif;
+      font-size: 5vh;
+      margin-bottom: 50px;
+    }
+
+    a {
+      text-decoration: none;
+      margin-right: 15px;
+      margin-left: 15px;
+    }
+  }
+}
+@include desktop {
+}

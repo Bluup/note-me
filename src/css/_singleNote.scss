@@ -1,0 +1,243 @@
+@include mobile {
+  .upperSingleNote {
+    // position: relative;
+    #singleNote {
+      visibility: hidden;
+      opacity: 0;
+      position: fixed;
+      width: 90%;
+      max-height: 200px;
+      @include transition;
+      @include box-shadow;
+      border-radius: 8px;
+      padding: 20px 20px 10px 20px;
+      // overflow: auto;
+      background: $bg-color;
+      left: 50%;
+      top: 10%;
+      transform: translateX(-50%) scale(0.8);
+      z-index: 200;
+
+      -ms-overflow-style: none;
+      &::-webkit-scrollbar {
+        display: none;
+      }
+
+      .checkSetp {
+        top: 110%;
+        visibility: hidden;
+        opacity: 0;
+        position: fixed;
+        width: 100%;
+        @include transition;
+        @include box-shadow;
+        border-radius: 8px;
+        padding: 40px 20px 20px 20px;
+        overflow: auto;
+        background: $bg-color;
+        left: 50%;
+        transform: translate(-50%, 20px);
+        z-index: 200;
+        text-align: center;
+        .barReference {
+          position: relative;
+          width: 100%;
+          .bar {
+            position: absolute;
+            right: 20px;
+            top: -20px;
+            border: 2px solid $comment;
+            border-radius: 50px;
+            width: 25px;
+          }
+        }
+        p {
+          font-weight: 600;
+          margin-bottom: 20px;
+          font-size: 2vh;
+          @include transition;
+        }
+
+        .buttons {
+          text-align: center;
+          button {
+            border: 0;
+            height: 30px;
+            width: 30px;
+            border-radius: 50%;
+            margin: auto 20px;
+            &[name="cancel"] {
+              background: $comment;
+            }
+            &[name="delete"] {
+              background: #ff605c;
+            }
+          }
+        }
+      }
+
+      .bar {
+        position: absolute;
+        right: 20px;
+        top: 20px;
+        border: 2px solid $comment;
+        border-radius: 50px;
+        width: 25px;
+      }
+
+      h4 {
+        text-transform: capitalize;
+        color: $primary-color;
+        @include transition;
+      }
+
+      input {
+        text-transform: capitalize;
+        color: $primary-color;
+        @include transition;
+        color: $primary-color;
+        border: 0;
+        margin-bottom: 15px;
+        font-family: "Montserrat", sans-serif;
+        text-transform: capitalize;
+        font-weight: bold;
+        border-radius: 4px;
+        &:focus {
+          box-shadow: 0 0 0px 3px #bfdeff;
+        }
+      }
+
+      textarea {
+        display: block;
+        margin-block-start: 1em;
+        margin-block-end: 1em;
+        margin-inline-start: 0px;
+        margin-inline-end: 0px;
+        font-family: "Roboto", sans-serif;
+        font-size: 1rem;
+        padding: 0;
+        margin: 0;
+        border: 0;
+        margin-bottom: 10px;
+        width: 100%;
+        border-radius: 4px;
+        &:focus {
+          box-shadow: 0 0 0px 3px #bfdeff;
+        }
+      }
+
+      .footer {
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: space-between;
+        align-items: center;
+
+        .date {
+          font-style: italic;
+          color: $comment;
+          font-size: 13px;
+        }
+        .actions {
+          @include transition;
+          button {
+            border: 0;
+            height: 20px;
+            width: 20px;
+            border-radius: 50%;
+            &[name="edit"] {
+              background: #ffbd44;
+            }
+            &[name="delete"] {
+              background: #ff605c;
+            }
+          }
+
+          input[type="checkbox"] {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+            height: 0;
+            width: 0;
+          }
+
+          .labelContainer {
+            display: inline-block;
+            position: relative;
+            padding-left: 25px;
+            cursor: pointer;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+          }
+          input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+            height: 0;
+            width: 0;
+          }
+
+          .checkmark {
+            border: 2px solid #00ca4e;
+            background: none;
+            position: absolute;
+            top: -19px;
+            left: -50%;
+            height: 20px;
+            width: 20px;
+            border-radius: 50%;
+          }
+
+          .checkmark:after {
+            content: "";
+            position: absolute;
+            display: none;
+          }
+
+          .labelContainer input:checked ~ .checkmark:after {
+            display: block;
+          }
+
+          .labelContainer .checkmark:after {
+            left: -2px;
+            top: -2px;
+            width: 20px;
+            height: 20px;
+            background: #00ca4e;
+            border-radius: 50%;
+          }
+
+          * {
+            margin-left: 15px;
+          }
+        }
+
+        .hiddenActions {
+          opacity: 0;
+          visibility: hidden;
+          position: absolute;
+          right: 7%;
+          transform: translateY(15px);
+          @include transition;
+          button {
+            border: 0;
+            height: 20px;
+            width: 20px;
+            border-radius: 50%;
+            &[name="acceptEdit"] {
+              background: $primary-color;
+              border-radius: 3px;
+            }
+            &[name="cancelEdit"] {
+              background: #ff605c;
+            }
+          }
+          * {
+            margin-left: 15px;
+          }
+        }
+      }
+    }
+  }
+}

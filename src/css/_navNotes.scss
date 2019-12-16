@@ -1,0 +1,32 @@
+@include mobile {
+  #navNotes {
+    display: block;
+    width: 100%;
+    text-align: center;
+
+    a {
+      padding: 15px 0;
+      width: 50%;
+      display: inline-block;
+      text-decoration: none;
+      background: $bg-color-medium;
+      color: $font-color-muted;
+      &:visited {
+        color: $font-color-muted;
+      }
+
+      &.active {
+        background: $bg-color;
+        color: $primary-color;
+      }
+
+      &.left-active {
+        border-radius: 0 15px 0 0;
+      }
+
+      &.right-active {
+        border-radius: 8px 0 0 0;
+      }
+    }
+  }
+}

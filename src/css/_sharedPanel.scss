@@ -1,0 +1,54 @@
+@include mobile {
+  .shared {
+    position: fixed;
+    padding: 50px 20px;
+    height: 100vh;
+    width: 100%;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    opacity: 0;
+    visibility: hidden;
+    z-index: 100;
+    background: $bg-color;
+    @include transition;
+    transform: scale(0.9);
+    .bar {
+      position: absolute;
+      right: 20px;
+      top: 40px;
+      border: 2px solid $comment;
+      border-radius: 50px;
+      width: 25px;
+    }
+
+    form {
+      margin-top: -20px;
+      position: relative;
+      .form-group {
+        display: inline-block;
+        input.form-control {
+          width: 85%;
+          margin: 0;
+        }
+      }
+      button {
+        border: 0;
+        height: 20px;
+        width: 20px;
+        border-radius: 5px;
+        &[name="addMember"] {
+          background: $primary-color;
+          position: absolute;
+          right: 0px;
+          top: 50%;
+        }
+      }
+    }
+
+    h4 {
+      color: $primary-color;
+      margin: 0;
+    }
+  }
+}
