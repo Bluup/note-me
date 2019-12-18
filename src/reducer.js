@@ -7,14 +7,15 @@ import {
   toggle_note,
   delete_note,
   update_note,
-  add_member
+  add_member,
+  delete_member
 } from "./helpers/functions";
 const initialState = [];
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case "ADD_NOTE": {
-      const { title, text } = action.payload;
+      const { title, text, groupId } = action.payload;
       const newNote = {
         id: Date.now(),
         title,
@@ -24,24 +25,22 @@ const reducer = (state = initialState, action) => {
       };
       app.auth().onAuthStateChanged(user => {
         if (user) {
-          add_note(newNote, user.uid);
+          add_note(newNote, user.uid, groupId);
           return state;
-          // return [...state, newNote];
         }
       });
       return state;
     }
     case "ADD_MEMBER": {
-      const { memberEmail } = action.payload;
+      const memberEmail = action.payload.memberEmailValue;
       app.auth().onAuthStateChanged(user => {
         if (user) {
           firebase
             .database()
             .ref("/users/" + user.uid)
-            .on("value", snapshot => {
-              if (snapshot.val().group == null) {
-                const id = Date.now();
-                add_member(memberEmail, id, user.uid);
+            .once("value", snapshot => {
+              if (snapshot.val().group === "" || snapshot.val().group == null) {
+                add_member(memberEmail, action.payload.groupdId, user.uid);
                 return state;
               } else {
                 add_member(memberEmail, snapshot.val().group, user.uid);
@@ -52,10 +51,19 @@ const reducer = (state = initialState, action) => {
       });
       return state;
     }
+    case "DELETE_MEMBER": {
+      delete_member(action.payload.uid, action.payload.groupId);
+      return state;
+    }
     case "DELETE_NOTE": {
       app.auth().onAuthStateChanged(user => {
         if (user) {
-          delete_note(user.uid, action.payload, response => {});
+          delete_note(
+            user.uid,
+            action.payload.id,
+            action.payload.groupId,
+            response => {}
+          );
           return state;
         }
       });
@@ -65,7 +73,12 @@ const reducer = (state = initialState, action) => {
       app.auth().onAuthStateChanged(user => {
         if (user) {
           const value = action.payload.value;
-          toggle_note(user.uid, action.payload.id, value);
+          toggle_note(
+            user.uid,
+            action.payload.id,
+            value,
+            action.payload.groupId
+          );
           return state;
         }
       });
@@ -79,6 +92,7 @@ const reducer = (state = initialState, action) => {
             action.payload.id,
             action.payload.title,
             action.payload.text,
+            action.payload.groupId,
             () => {}
           );
           return state;

@@ -41,15 +41,15 @@
 .loading {
   display: inline-block;
   transform: translateY(2px);
-  margin: 0 10px;
   @include transition;
+  margin-left: 10px;
 }
 .loading:after {
   content: " ";
   display: block;
   width: 10px;
   height: 10px;
-  margin: auto;
+  margin: 0;
   border-radius: 50%;
   border: 2px solid white;
   border-color: white white white transparent;

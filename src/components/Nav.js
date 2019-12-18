@@ -3,7 +3,9 @@ import { Link } from "react-router-dom";
 const Nav = () => {
   return (
     <nav id="landing_nav">
-      <Link to="/">NoteMe</Link>
+      <Link to="/">
+        <img src="/images/logo.png" alt="" />
+      </Link>
     </nav>
   );
 };

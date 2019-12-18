@@ -1,7 +1,9 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import Nav from "./Nav";
-const Home = () => {
+import authentication from "../auth";
+const Home = ({ history }) => {
   useEffect(() => {
     let timer = "";
     let timer2 = "";
@@ -28,6 +30,11 @@ const Home = () => {
       clearTimeout(timer);
       clearTimeout(timer2);
     };
+  }, []);
+  useEffect(() => {
+    if (authentication.getUser() !== "") {
+      history.push("/notes");
+    }
   }, []);
   return (
     <div className="landing" id="landing">

@@ -1,7 +1,10 @@
 import React, { useContext, useState, useEffect } from "react";
 import UserContext from "../UserContext";
 import { inputAnimation } from "../animation";
+import GroupContext from "../GroupContext";
+
 const NewNote = () => {
+  const groupId = useContext(GroupContext);
   useEffect(() => {
     inputAnimation();
   }, []);
@@ -22,7 +25,7 @@ const NewNote = () => {
     setIsLoading(true);
     await dispatch({
       type: "ADD_NOTE",
-      payload: { title: title.value, text: text.value }
+      payload: { title: title.value, text: text.value, groupId }
     });
     setIsLoading(false);
     document.getElementById("titleNote").value = "";

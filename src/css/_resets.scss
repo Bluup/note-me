@@ -72,3 +72,11 @@ textarea::placeholder {
   -webkit-user-select: none;
   -ms-user-select: none;
 }
+
+.selectable {
+  user-select: text;
+  -moz-user-select: text;
+  -webkit-user-drag: text;
+  -webkit-user-select: text;
+  -ms-user-select: text;
+}

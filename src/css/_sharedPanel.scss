@@ -20,6 +20,7 @@
       border: 2px solid $comment;
       border-radius: 50px;
       width: 25px;
+      cursor: pointer;
     }
 
     form {
@@ -47,8 +48,37 @@
     }
 
     h4 {
-      color: $primary-color;
+      color: var(--maincolor);
+      // color: $primary-color;
       margin: 0;
+    }
+
+    #{&}-list {
+      overflow: auto;
+      .singleMember {
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px;
+        & > div {
+          font-size: 14px;
+        }
+        &:nth-child(odd) {
+          background: lighten($primary-color, 35%);
+        }
+        button {
+          border: 0;
+          height: 18px;
+          width: 18px;
+          border-radius: 50%;
+          margin: auto 20px;
+          cursor: pointer;
+          &[name="deleteMember"] {
+            background: #ff605c;
+          }
+        }
+      }
     }
   }
 }

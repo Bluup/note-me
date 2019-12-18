@@ -17,7 +17,7 @@
     z-index: 200;
 
     h4 {
-      color: $primary-color;
+      color: var(--maincolor);
       margin-bottom: 0;
     }
 
@@ -28,6 +28,7 @@
       border: 2px solid $comment;
       border-radius: 50px;
       width: 25px;
+      cursor: pointer;
     }
   }
 }

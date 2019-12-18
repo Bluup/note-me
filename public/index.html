@@ -3,11 +3,14 @@
 
 <head>
   <meta charset="utf-8" />
-  <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#000000" />
-  <meta name="description" content="Web site created using create-react-app" />
+  <meta name="description" content="NoteMe" />
   <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="%PUBLIC_URL%/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="%PUBLIC_URL%/favicon-16x16.png">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#da532c">
   <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
   <link href="https://fonts.googleapis.com/css?family=Bebas+Neue|Montserrat|Roboto&display=swap" rel="stylesheet">
   <title>React App</title>
@@ -17,9 +20,9 @@
 
 <body>
   <noscript>You need to enable JavaScript to run this app.</noscript>
-  <!-- <div class="unselectable" id="firstAnimation">
+  <div class="unselectable" id="firstAnimation">
     <span>Note Me</span>
-  </div> -->
+  </div>
   <div id="root"></div>
   <script>
     window.addEventListener("click", e => {
@@ -39,31 +42,31 @@
         }, 1000);
       }
     });
-    // window.onload = () => {
-    //   const firstAnimation = document.getElementById("firstAnimation");
-    //   const roots = document.getElementById("root");
-    //   const span = firstAnimation.children[0];
+    window.onload = () => {
+      const firstAnimation = document.getElementById("firstAnimation");
+      const roots = document.getElementById("root");
+      const span = firstAnimation.children[0];
 
-    //   span.style.transition = "all 1.5s ease-out";
-    //   span.style.opacity = "1";
+      span.style.transition = "all 1.5s ease-out";
+      span.style.opacity = "1";
 
-    //   firstAnimation.style.transition = "all 1s ease-in-out";
-    //   span.style.transform = "translateY(0) ";
+      firstAnimation.style.transition = "all 1s ease-in-out";
+      span.style.transform = "translateY(0) ";
 
-    //   roots.style.transition = "all 1s ease-in-out";
+      roots.style.transition = "all 1s ease-in-out";
 
-    //   setTimeout(() => {
-    //     span.style.transform = "scale(0.9)";
-    //     span.style.opacity = "0";
-    //     span.style.visibility = "hidden";
-    //     firstAnimation.style.opacity = "0";
-    //     firstAnimation.style.visibility = "hidden";
-    //   }, 2500);
-    //   setTimeout(() => {
-    //     roots.style.opacity = "1";
-    //     roots.style.visibility = "visible";
-    //   }, 3500);
-    // }
+      setTimeout(() => {
+        span.style.transform = "scale(0.9)";
+        span.style.opacity = "0";
+        span.style.visibility = "hidden";
+        firstAnimation.style.opacity = "0";
+        firstAnimation.style.visibility = "hidden";
+      }, 2500);
+      setTimeout(() => {
+        roots.style.opacity = "1";
+        roots.style.visibility = "visible";
+      }, 3500);
+    }
   </script>
 </body>
 

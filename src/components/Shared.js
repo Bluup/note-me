@@ -12,20 +12,25 @@ const Shared = props => {
 
   const [loading, setloading] = useState(false);
   const [members, setMembers] = useState([]);
-
+  const [groupdId, setGroupdId] = useState("");
   useEffect(() => {
     inputAnimation();
-    app.auth().onAuthStateChanged(user => {
+    app.auth().onAuthStateChanged(async user => {
       setloading(true);
       if (user) {
-        firebase
+        await firebase
           .database()
           .ref("/users/" + user.uid)
-          .on("value", snapshot => {
-            if (snapshot.val().group == null) {
-              setMembers([]);
+          .once("value", async snapshot => {
+            if (snapshot.val().group == null || snapshot.val().group === "") {
+              const uniqid = Date.now();
+              await setGroupdId(uniqid);
+              get_members(uniqid, user.uid, members => {
+                setMembers(members);
+              });
             } else {
-              get_members(snapshot.val().group, members => {
+              setGroupdId(snapshot.val().group);
+              get_members(snapshot.val().group, user.uid, members => {
                 setMembers(members);
               });
             }
@@ -49,38 +54,59 @@ const Shared = props => {
     }
     error.style.opacity = "0";
     error.style.visibility = "hidden";
-
+    const memberEmailValue = memberEmail.value;
     Context.dispatch({
       type: "ADD_MEMBER",
-      payload: memberEmail
+      payload: {
+        memberEmailValue,
+        groupdId
+      }
+    });
+    memberEmail.value = "";
+  };
+  const deleteMember = (uid, groupId) => {
+    Context.dispatch({
+      type: "DELETE_MEMBER",
+      payload: { uid, groupId }
     });
   };
-
   return (
     <div className="shared" id="shared">
       <div className="bar"></div>
-      <h4>Add a memeber</h4>
+      <h4>Add a memeber</h4> <br />
       <form className="pretty">
         <div className="form-group">
-          <label htmlFor="emailMember">Write you friend's email</label>
+          <label htmlFor="emailMember">Write your friend's email</label>
           <input
             id="emailMember"
             type="text"
             className="form-control input-animated"
           />
-          <button name="addMember"></button>
+          <button onClick={addMember} name="addMember"></button>
         </div>
-      </form>{" "}
+      </form>
       <br /> <br />
       <div className="shared-panel">
-        <h4>My Team</h4>
+        <h4>My Team</h4> <br />
         <div className="shared-list">
           {loading ? (
             <div className="fullLoader">
               <div className="loading-primary"></div>
             </div>
           ) : members.length > 0 ? (
-            <div>asd</div>
+            <div>
+              {members.map(member => (
+                <div className="singleMember" key={member.uid}>
+                  <div>{member.email}</div>
+                  <button
+                    onClick={() => {
+                      deleteMember(member.uid, groupdId);
+                    }}
+                    name="deleteMember"
+                  ></button>
+                </div>
+              ))}
+            </div>
           ) : (
             <div>No Data Found</div>
           )}

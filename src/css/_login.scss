@@ -1,24 +1,87 @@
 @include mobile {
   .login {
-    padding-top: 10vh;
     min-height: 100vh;
     display: flex;
-    flex-flow: column wrap;
-    align-items: center;
-    justify-content: center;
+    flex-flow: row wrap;
 
-    form {
-      width: 90%;
+    .left {
+      display: none;
+      a {
+        img {
+          width: 100px;
+        }
+      }
+    }
+
+    .right {
+      width: 100%;
       padding: 20px;
-      @include box-shadow;
+      display: flex;
+      align-items: center;
+      div {
+        width: 80%;
+        margin: auto;
+        a.brand {
+          text-decoration: none;
+          display: block;
+          margin-bottom: 20px;
+          img {
+            width: 50px;
+          }
+        }
+        h4 {
+          font-weight: bold;
+          font-size: 4vh;
+        }
+        form {
+          margin: auto;
+          padding: 0;
+          width: 100%;
+          .form-group {
+            width: 100%;
+          }
+          button {
+            padding: 10px 0px;
+            width: 100%;
+            font-weight: 590;
+          }
+          .error {
+            margin-top: 10px;
+            width: 100%;
+          }
+        }
+      }
     }
   }
 }
 @include desktop {
   .login {
-    form {
-      width: 20%;
-      padding: 30px;
+    .left {
+      display: block;
+      width: 37%;
+      background: lighten($primary-color, 20%);
+      padding: 80px;
+      a {
+        text-decoration: none;
+        transition: none;
+        &:hover {
+          opacity: 0.8;
+        }
+      }
+    }
+    .right {
+      width: 63%;
+      padding: 100px 200px;
+      div {
+        a.brand {
+          display: none;
+        }
+        form {
+          button {
+            width: 40%;
+          }
+        }
+      }
     }
   }
 }

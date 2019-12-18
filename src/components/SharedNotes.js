@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import Note from "./Note";
 import NewNote from "./NewNote";
-import { get_notes, get_note } from "../helpers/functions";
+import { get_notes, get_note, get_groupId } from "../helpers/functions";
 import app from "../config/app";
 import NavNotes from "./NavNotes";
 import SearchBar from "./SearchBar";
@@ -11,21 +11,31 @@ import Filters from "./Filters";
 import MainButton from "./MainButton";
 import SingleNote from "./SingleNote";
 import Shared from "./Shared";
+import GroupContex from "../GroupContext";
 
-const Notes = () => {
-  document.documentElement.style.setProperty("--maincolor", "#5084eb");
+const SharedNotes = () => {
   const [state, setState] = useState([]);
   const [originalState, setOriginalState] = useState([]);
   const [loading, setloading] = useState(false);
   const [note, setNote] = useState({});
-
+  const [groupId, setGroupId] = useState("");
+  const [userUid, setUserUid] = useState("");
+  const [currentEmail, setCurrentEmail] = useState("");
+  document.documentElement.style.setProperty("--maincolor", "#edc056");
   useEffect(() => {
+    document.getElementById("mynotes-link").className = "";
+    document.getElementById("shared-link").className = "active right-active";
     setloading(true);
     app.auth().onAuthStateChanged(user => {
       if (user) {
-        get_notes(user.uid, false, null, notes => {
-          setState(notes);
-          setOriginalState(notes);
+        get_groupId(user.uid, groupId => {
+          get_notes(user.uid, true, groupId, notes => {
+            setState(notes);
+            setOriginalState(notes);
+            setGroupId(groupId);
+            setUserUid(user.uid);
+            setCurrentEmail(user.email);
+          });
         });
       }
       setTimeout(() => {
@@ -41,7 +51,7 @@ const Notes = () => {
     const singleNoteContainer = document.querySelector(".upperSingleNote");
     app.auth().onAuthStateChanged(user => {
       if (user) {
-        get_note(user.uid, noteId, undefined, note => {
+        get_note(user.uid, noteId, groupId, note => {
           setNote(note);
           modal.style.visibility = "visible";
           modal.style.opacity = "1";
@@ -68,6 +78,7 @@ const Notes = () => {
             const inputText = singleNote.querySelector("textarea");
 
             if (inputText === null) return;
+
             inputTitle.style.opacity = "0";
             inputTitle.style.visibility = "hidden";
             inputText.style.opacity = "0";
@@ -91,7 +102,6 @@ const Notes = () => {
             text.style.opacity = "1";
             text.style.visibility = "visible";
           });
-
           singleNoteContainer.style.zIndex = "200";
           singleNoteContainer.style.visibility = "visible";
           singleNoteContainer.style.opacity = "1";
@@ -128,7 +138,6 @@ const Notes = () => {
     div.style.visibility = "visible";
     div.style.opacity = "1";
   };
-
   const filterNotes = filter => {
     document
       .getElementById("filters")
@@ -151,7 +160,7 @@ const Notes = () => {
         return noteState === filter;
       });
       if (newState.length === 0) {
-        newState = [{ id: 1, title: "No Data Found" }];
+        newState = [{ id: 1, title: "No Data Found", by: { uid: null } }];
       }
       setState(newState);
     }
@@ -159,33 +168,38 @@ const Notes = () => {
 
   return (
     <div className="notes" id="notes">
-      <SingleNote note={note} displayDeleteMessage={displayDeleteMessage} />
-      <Shared />
-      <NavNotes />
-      <NewNote />
-      <SearchBar search={searchQuery} />
-      <Filters isLoading={loading} filterNotes={filterNotes} />
-      <div className="notesContainer">
-        {loading ? (
-          <div className="fullLoader">
-            <div className="loading-primary"></div>
-          </div>
-        ) : state.length > 0 ? (
-          state.map(note => (
-            <Note
-              handleSingleNote={handleSingleNote}
-              key={note.id}
-              note={note}
-            />
-          ))
-        ) : (
-          <div className="noDataFound">Nothing around here :(</div>
-        )}
-        <MainButton />
-        <div className="modal"></div>
-      </div>
+      <GroupContex.Provider value={groupId}>
+        <SingleNote note={note} displayDeleteMessage={displayDeleteMessage} />
+        <Shared />
+        <NavNotes />
+        <NewNote />
+        <SearchBar search={searchQuery} />
+        <Filters isLoading={loading} filterNotes={filterNotes} />
+        <div className="notesContainer">
+          {loading ? (
+            <div className="fullLoader">
+              <div className="loading-primary"></div>
+            </div>
+          ) : state.length > 0 ? (
+            state.map(note => (
+              <Note
+                currentEmail={currentEmail}
+                groupId={groupId}
+                uid={userUid}
+                handleSingleNote={handleSingleNote}
+                key={note.id}
+                note={note}
+              />
+            ))
+          ) : (
+            <div className="noDataFound">Nothing around here :(</div>
+          )}
+          <MainButton />
+          <div className="modal"></div>
+        </div>
+      </GroupContex.Provider>
     </div>
   );
 };
 
-export default React.memo(Notes);
+export default React.memo(SharedNotes);

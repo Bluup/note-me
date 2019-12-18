@@ -1,7 +1,6 @@
 import React, { useReducer } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./css/main.css";
-
 import UserContext from "./UserContext";
 import reducer from "./reducer";
 
@@ -12,6 +11,7 @@ import Welcome from "./components/Welcome";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Login from "./components/Login";
 import Notes from "./components/Notes";
+import SharedNotes from "./components/SharedNotes";
 
 const App = () => {
   const [state, dispatch] = useReducer(reducer, []);
@@ -25,6 +25,11 @@ const App = () => {
           <ProtectedRoute path="/welcome" exact component={Welcome} />
           <UserContext.Provider value={{ state, dispatch }}>
             <ProtectedRoute path="/notes" exact component={Notes} />
+            <ProtectedRoute
+              path="/shared-notes"
+              exact
+              component={SharedNotes}
+            />
           </UserContext.Provider>
         </Switch>
       </div>

@@ -1,10 +1,11 @@
 import React from "react";
-
+import authentication from "../auth";
 const MainButton = props => {
   const showMenu = () => {
     const mainButton = document.getElementById("mainButton-main");
     const addButton = document.querySelector("[name='addButton']");
     const shareButton = document.querySelector("[name='shareButton']");
+    const quitButton = document.querySelector("[name='quit']");
 
     const bar1 = document.querySelector("[name='bars-1']");
     const bar2 = document.querySelector("[name='bars-2']");
@@ -18,6 +19,9 @@ const MainButton = props => {
       shareButton.style.transform = "translateY(0)";
       shareButton.style.visibility = "visible";
       shareButton.style.opacity = "1";
+      quitButton.style.transform = "translateY(0)";
+      quitButton.style.visibility = "visible";
+      quitButton.style.opacity = "1";
 
       bar2.style.transform = "rotate(135deg)";
       bar1.style.transform = "rotate(45deg) translate(4px,4px)";
@@ -30,6 +34,9 @@ const MainButton = props => {
       shareButton.style.transform = "translateY(50px)";
       shareButton.style.visibility = "hidden";
       shareButton.style.opacity = "0";
+      quitButton.style.transform = "translateY(50px)";
+      quitButton.style.visibility = "hidden";
+      quitButton.style.opacity = "0";
 
       bar2.style.transform = "rotate(0deg)";
       bar1.style.transform = "rotate(0deg) translate(0px,0px)";
@@ -58,6 +65,7 @@ const MainButton = props => {
     const mainButton = document.getElementById("mainButton-main");
     const addButton = document.querySelector("[name='addButton']");
     const shareButton = document.querySelector("[name='shareButton']");
+    const quitButton = document.querySelector("[name='quit']");
 
     const bar1 = document.querySelector("[name='bars-1']");
     const bar2 = document.querySelector("[name='bars-2']");
@@ -70,6 +78,9 @@ const MainButton = props => {
     shareButton.style.transform = "translateY(50px)";
     shareButton.style.visibility = "hidden";
     shareButton.style.opacity = "0";
+    quitButton.style.transform = "translateY(50px)";
+    quitButton.style.visibility = "hidden";
+    quitButton.style.opacity = "0";
     bar2.style.transform = "rotate(0deg)";
     bar1.style.transform = "rotate(0deg) translate(0px,0px)";
     bar3.style.opacity = "1";
@@ -92,6 +103,7 @@ const MainButton = props => {
     const mainButton = document.getElementById("mainButton-main");
     const addButton = document.querySelector("[name='addButton']");
     const shareButton = document.querySelector("[name='shareButton']");
+    const quitButton = document.querySelector("[name='quit']");
 
     const bar1 = document.querySelector("[name='bars-1']");
     const bar2 = document.querySelector("[name='bars-2']");
@@ -104,12 +116,23 @@ const MainButton = props => {
     shareButton.style.transform = "translateY(50px)";
     shareButton.style.visibility = "hidden";
     shareButton.style.opacity = "0";
+    quitButton.style.transform = "translateY(50px)";
+    quitButton.style.visibility = "hidden";
+    quitButton.style.opacity = "0";
     bar2.style.transform = "rotate(0deg)";
     bar1.style.transform = "rotate(0deg) translate(0px,0px)";
     bar3.style.opacity = "1";
   };
+
+  const logout = () => {
+    authentication.logout();
+    window.location.href = "/";
+  };
   return (
     <div className="" id="mainButton">
+      <button name="quit" onClick={logout} className="btn dropButton">
+        <i className="fas fa-sign-out-alt"></i>
+      </button>
       <button
         name="shareButton"
         onClick={displayShared}

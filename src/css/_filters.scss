@@ -22,7 +22,7 @@
       cursor: pointer;
       @include transition;
       &.active {
-        background: $primary-color;
+        background: var(--maincolor);
         color: $font-color;
       }
       &[name="completed"] {

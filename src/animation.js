@@ -2,16 +2,16 @@ export const inputAnimation = props => {
   document.querySelectorAll(".input-animated").forEach(input =>
     input.addEventListener("focus", () => {
       const label = input.previousSibling;
-      label.style.transform = "translate(4%, 50%) scale(0.8)";
+      label.style.transform = "translate(0%, 50%) scale(0.8)";
       label.style.color = "#80bdff";
     })
   );
   document.querySelectorAll(".input-animated").forEach(input =>
     input.addEventListener("blur", () => {
       const label = input.previousSibling;
-      label.style.color = "#cdd6e2";
+      label.style.color = "#444";
       if (input.value === "") {
-        label.style.fontSize = "1.2rem";
+        label.style.fontSize = "1";
         label.style.transform = "translate(4%, 150%) scale(1)";
       }
     })
@@ -19,16 +19,16 @@ export const inputAnimation = props => {
   document.querySelectorAll(".textarea-animated").forEach(textarea =>
     textarea.addEventListener("focus", () => {
       const label = textarea.previousSibling;
-      label.style.transform = "translate(4%, 50%) scale(0.8)";
+      label.style.transform = "translate(0%, 50%) scale(0.8)";
       label.style.color = "#80bdff";
     })
   );
   document.querySelectorAll(".textarea-animated").forEach(textarea =>
     textarea.addEventListener("blur", () => {
       const label = textarea.previousSibling;
-      label.style.color = "#cdd6e2";
+      label.style.color = "#444";
       if (textarea.value === "") {
-        label.style.fontSize = "1.2rem";
+        label.style.fontSize = "1";
         label.style.transform = "translate(4%, 150%) scale(1)";
       }
     })

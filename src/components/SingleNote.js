@@ -1,9 +1,12 @@
 import React, { useContext } from "react";
 import moment from "moment";
 import UserContext from "../UserContext";
+import GroupContext from "../GroupContext";
+import authentication from "../auth";
 
 const SingleNote = ({ note, displayDeleteMessage }) => {
   const Context = useContext(UserContext);
+  const groupId = useContext(GroupContext);
   const style = {
     color:
       note !== null ? (note.completed ? "rgba(210,210,210,1)" : null) : null
@@ -15,14 +18,17 @@ const SingleNote = ({ note, displayDeleteMessage }) => {
   const hideNote = () => {
     setTimeout(() => {
       const singleNote = document.getElementById("singleNote");
-
+      const singleNoteContainer = document.querySelector(".upperSingleNote");
       const deleteMessage = document.querySelector(".checkSetp");
       deleteMessage.style.visibility = "hidden";
       deleteMessage.style.opacity = "0";
-      deleteMessage.style.transform = "translate(-50%,20px)";
+      deleteMessage.style.transform = "translateY(20px)";
       singleNote.style.visibility = "hidden";
       singleNote.style.opacity = "0";
-      singleNote.style.transform = "translateX(-50%) scale(0.8)";
+      singleNote.style.transform = "scale(0.8)";
+      singleNoteContainer.style.visibility = "hidden";
+      singleNoteContainer.style.opacity = "0";
+      singleNoteContainer.style.zIndex = "-100";
       const modal = document.querySelector(".modal");
       modal.style.visibility = "hidden";
       modal.style.opacity = "0";
@@ -34,15 +40,15 @@ const SingleNote = ({ note, displayDeleteMessage }) => {
     const deleteMessage = document.querySelector(".checkSetp");
     deleteMessage.style.visibility = "hidden";
     deleteMessage.style.opacity = "0";
-    deleteMessage.style.transform = "translate(-50%,20px)";
+    deleteMessage.style.transform = "translateY(20px)";
   };
 
   const makeEditable = () => {
     const singleNote = document.getElementById("singleNote");
     const titleValue = singleNote.querySelector("h4").innerHTML;
-    const textValue = singleNote.querySelector("p").innerHTML;
+    const textValue = singleNote.querySelector("pre").innerHTML;
     const title = singleNote.querySelector("h4");
-    const text = singleNote.querySelector("p");
+    const text = singleNote.querySelector("pre");
     const actions = document.querySelector(".actions");
     const hiddenActions = document.querySelector(".hiddenActions");
 
@@ -93,7 +99,7 @@ const SingleNote = ({ note, displayDeleteMessage }) => {
   const cancelEdit = () => {
     const singleNote = document.getElementById("singleNote");
     const title = singleNote.querySelector("h4");
-    const text = singleNote.querySelector("p");
+    const text = singleNote.querySelector("pre");
     const actions = document.querySelector(".actions");
     const hiddenActions = document.querySelector(".hiddenActions");
 
@@ -136,10 +142,13 @@ const SingleNote = ({ note, displayDeleteMessage }) => {
       payload: {
         id: note.id,
         title,
-        text
+        text,
+        groupId
       }
     });
   };
+
+  const currentEmail = authentication.getUser();
 
   let date = "";
   if (note !== null) {
@@ -154,8 +163,19 @@ const SingleNote = ({ note, displayDeleteMessage }) => {
         {note !== null ? (
           <>
             <div onClick={hideNote} className="bar"></div>
-            <h4 style={headerStyle}>{note.title}</h4>
-            <p style={style}>{note.text}</p>
+            <p className="by">
+              {note.by
+                ? note.by.email !== currentEmail
+                  ? note.by.email
+                  : null
+                : null}
+            </p>
+            <h4 className="selectable" style={headerStyle}>
+              {note.title}
+            </h4>
+            <pre className="selectable" style={style}>
+              {note.text}
+            </pre>
             <div className="footer">
               <div className="date">{date}</div>
               <div className="actions">
@@ -166,7 +186,8 @@ const SingleNote = ({ note, displayDeleteMessage }) => {
                         type: "TOGGLE_COMPLETED",
                         payload: {
                           id: note.id,
-                          value: note.completed
+                          value: note.completed,
+                          groupId
                         }
                       });
                     }}
@@ -190,29 +211,32 @@ const SingleNote = ({ note, displayDeleteMessage }) => {
             </div>
           </>
         ) : null}
-        <div className="checkSetp">
-          {note !== null ? (
-            <>
-              <div className="barReference">
-                <div onClick={hideDeleteMessage} className="bar"></div>
-              </div>
-              <p>Do you want to delete this note?</p>
-              <div className="buttons">
-                <button onClick={hideDeleteMessage} name="cancel"></button>
-                <button
-                  name="delete"
-                  onClick={() => {
-                    hideNote();
-                    Context.dispatch({
-                      type: "DELETE_NOTE",
-                      payload: note.id
-                    });
-                  }}
-                ></button>
-              </div>
-            </>
-          ) : null}
-        </div>
+      </div>
+      <div className="checkSetp">
+        {note !== null ? (
+          <>
+            <div className="barReference">
+              <div onClick={hideDeleteMessage} className="bar"></div>
+            </div>
+            <p>Do you want to delete this note?</p>
+            <div className="buttons">
+              <button onClick={hideDeleteMessage} name="cancel"></button>
+              <button
+                name="delete"
+                onClick={() => {
+                  hideNote();
+                  Context.dispatch({
+                    type: "DELETE_NOTE",
+                    payload: {
+                      id: note.id,
+                      groupId
+                    }
+                  });
+                }}
+              ></button>
+            </div>
+          </>
+        ) : null}
       </div>
     </div>
   );

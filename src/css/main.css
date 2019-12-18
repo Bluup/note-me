@@ -89,9 +89,21 @@ textarea::placeholder {
   -ms-user-select: none;
 }
 
+.selectable {
+  user-select: text;
+  -moz-user-select: text;
+  -webkit-user-drag: text;
+  -webkit-user-select: text;
+  -ms-user-select: text;
+}
+
 /*
     COLORS
 */
+:root {
+  --maincolor: #5084eb;
+}
+
 /*
     MARGIN
 */
@@ -383,14 +395,16 @@ form.pretty .form-group {
 }
 
 form.pretty .form-group label {
-  color: #cdd6e2;
-  font-size: 1.2rem;
+  color: #444;
+  font-size: 1rem;
+  font-weight: bold;
   -webkit-transform: translate(4%, 150%) scale(1);
           transform: translate(4%, 150%) scale(1);
   -webkit-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;
   margin: 0;
-  background: #ffffff;
+  background: #f5f6f7;
+  border-radius: 8px 8px 0 0;
   padding: 0 10px;
   display: inline-block;
   -webkit-transform-origin: left;
@@ -452,19 +466,22 @@ form.pretty .form-group input.form-control {
   margin-top: 0px;
   display: block;
   width: 100%;
-  padding: 15px;
-  border: 1px solid #c9c9c9;
-  border-radius: 4px;
+  padding: 12px 15px;
+  background: #f5f6f7;
+  border: 0;
+  border-radius: 6px;
   font-size: 13px;
+  color: #444;
   -webkit-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;
+  -webkit-box-shadow: inset 0px 2px 3px rgba(0, 0, 0, 0.03);
+          box-shadow: inset 0px 2px 3px rgba(0, 0, 0, 0.03);
 }
 
 form.pretty .form-group textarea.form-control:focus,
 form.pretty .form-group input.form-control:focus {
-  -webkit-box-shadow: 0 0 0px 3px #bfdeff;
-          box-shadow: 0 0 0px 3px #bfdeff;
-  border: 1px solid #80bdff;
+  -webkit-box-shadow: 0 0 0px 3px #bfdeff, 0 0 0 1px #80bdff;
+          box-shadow: 0 0 0px 3px #bfdeff, 0 0 0 1px #80bdff;
 }
 
 form.pretty label.form-check-label {
@@ -515,12 +532,12 @@ form.pretty p {
   text-align: left;
   cursor: pointer;
   background: #f6f5fa;
-  color: #2e2e2e;
+  color: #444;
 }
 
 .panelContainer {
-  -webkit-box-shadow: 0 -2px 0 0 #7b7b7b;
-          box-shadow: 0 -2px 0 0 #7b7b7b;
+  -webkit-box-shadow: 0 -2px 0 0 #919191;
+          box-shadow: 0 -2px 0 0 #919191;
   padding: 0px 8px;
   background-color: #ffffff;
   max-height: 0px;
@@ -1365,7 +1382,7 @@ p {
 
 #firstAnimation span {
   font-size: 10vh;
-  color: #2e2e2e;
+  color: #444;
   font-weight: bold;
   -webkit-transform: translateY(30px) rotate(-10deg);
           transform: translateY(30px) rotate(-10deg);
@@ -1384,8 +1401,14 @@ p {
   #landing_nav a {
     text-decoration: none;
   }
+  #landing_nav a img {
+    width: 100px;
+  }
   .landing {
     padding-top: 10vh;
+    width: 90%;
+    margin: auto;
+    text-align: center;
     min-height: 100vh;
     display: -webkit-box;
     display: -ms-flexbox;
@@ -1415,67 +1438,176 @@ p {
 
 @media (min-width: 320px) {
   .register {
-    padding-top: 10vh;
     min-height: 100vh;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
-    -webkit-box-orient: vertical;
+    -webkit-box-orient: horizontal;
     -webkit-box-direction: normal;
-        -ms-flex-flow: column wrap;
-            flex-flow: column wrap;
+        -ms-flex-flow: row wrap;
+            flex-flow: row wrap;
+  }
+  .register .left {
+    display: none;
+  }
+  .register .left a img {
+    width: 100px;
+  }
+  .register .right {
+    width: 100%;
+    padding: 20px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
     -webkit-box-align: center;
         -ms-flex-align: center;
             align-items: center;
-    -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
   }
-  .register form {
-    width: 90%;
-    padding: 20px;
-    -webkit-box-shadow: 0 1px 2px 1px rgba(0, 0, 0, 0.2);
-            box-shadow: 0 1px 2px 1px rgba(0, 0, 0, 0.2);
+  .register .right div {
+    width: 80%;
+    margin: auto;
+  }
+  .register .right div a.brand {
+    text-decoration: none;
+    display: block;
+    margin-bottom: 20px;
+  }
+  .register .right div a.brand img {
+    width: 50px;
+  }
+  .register .right div h4 {
+    font-weight: bold;
+    font-size: 4vh;
+  }
+  .register .right div form {
+    margin: auto;
+    padding: 0;
+    width: 100%;
+  }
+  .register .right div form .form-group {
+    width: 100%;
+  }
+  .register .right div form button {
+    padding: 10px 0px;
+    width: 40%;
+    font-weight: 590;
+  }
+  .register .right div form .error {
+    margin-top: 10px;
+    width: 100%;
   }
 }
 
 @media (min-width: 768px) {
-  .register form {
-    width: 20%;
-    padding: 30px;
+  .register .left {
+    display: block;
+    width: 37%;
+    background: #f2d184;
+    padding: 80px;
+  }
+  .register .left a {
+    text-decoration: none;
+    -webkit-transition: none;
+    transition: none;
+  }
+  .register .left a:hover {
+    opacity: 0.8;
+  }
+  .register .right {
+    width: 63%;
+    padding: 100px 200px;
+  }
+  .register .right div a.brand {
+    display: none;
   }
 }
 
 @media (min-width: 320px) {
   .login {
-    padding-top: 10vh;
     min-height: 100vh;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
-    -webkit-box-orient: vertical;
+    -webkit-box-orient: horizontal;
     -webkit-box-direction: normal;
-        -ms-flex-flow: column wrap;
-            flex-flow: column wrap;
+        -ms-flex-flow: row wrap;
+            flex-flow: row wrap;
+  }
+  .login .left {
+    display: none;
+  }
+  .login .left a img {
+    width: 100px;
+  }
+  .login .right {
+    width: 100%;
+    padding: 20px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
     -webkit-box-align: center;
         -ms-flex-align: center;
             align-items: center;
-    -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
   }
-  .login form {
-    width: 90%;
-    padding: 20px;
-    -webkit-box-shadow: 0 1px 2px 1px rgba(0, 0, 0, 0.2);
-            box-shadow: 0 1px 2px 1px rgba(0, 0, 0, 0.2);
+  .login .right div {
+    width: 80%;
+    margin: auto;
+  }
+  .login .right div a.brand {
+    text-decoration: none;
+    display: block;
+    margin-bottom: 20px;
+  }
+  .login .right div a.brand img {
+    width: 50px;
+  }
+  .login .right div h4 {
+    font-weight: bold;
+    font-size: 4vh;
+  }
+  .login .right div form {
+    margin: auto;
+    padding: 0;
+    width: 100%;
+  }
+  .login .right div form .form-group {
+    width: 100%;
+  }
+  .login .right div form button {
+    padding: 10px 0px;
+    width: 100%;
+    font-weight: 590;
+  }
+  .login .right div form .error {
+    margin-top: 10px;
+    width: 100%;
   }
 }
 
 @media (min-width: 768px) {
-  .login form {
-    width: 20%;
-    padding: 30px;
+  .login .left {
+    display: block;
+    width: 37%;
+    background: #acc4f5;
+    padding: 80px;
+  }
+  .login .left a {
+    text-decoration: none;
+    -webkit-transition: none;
+    transition: none;
+  }
+  .login .left a:hover {
+    opacity: 0.8;
+  }
+  .login .right {
+    width: 63%;
+    padding: 100px 200px;
+  }
+  .login .right div a.brand {
+    display: none;
+  }
+  .login .right div form button {
+    width: 40%;
   }
 }
 
@@ -1490,7 +1622,7 @@ p {
     width: 50%;
     display: inline-block;
     text-decoration: none;
-    background: #f2f2f2;
+    background: #edf2f7;
     color: #707070;
   }
   #navNotes a:visited {
@@ -1498,13 +1630,13 @@ p {
   }
   #navNotes a.active {
     background: #ffffff;
-    color: #5084eb;
+    color: var(--maincolor);
   }
   #navNotes a.left-active {
     border-radius: 0 15px 0 0;
   }
   #navNotes a.right-active {
-    border-radius: 8px 0 0 0;
+    border-radius: 15px 0 0 0;
   }
 }
 
@@ -1513,8 +1645,8 @@ p {
     width: 100%;
     height: 100vh;
     overflow: hidden;
-    background: -webkit-gradient(linear, left bottom, left top, color-stop(98%, #ffffff), color-stop(2%, #f2f2f2));
-    background: linear-gradient(0deg, #ffffff 98%, #f2f2f2 2%);
+    background: -webkit-gradient(linear, left bottom, left top, color-stop(98%, #ffffff), color-stop(2%, #edf2f7));
+    background: linear-gradient(0deg, #ffffff 98%, #edf2f7 2%);
   }
   #notes .notesContainer {
     padding: 15px;
@@ -1548,8 +1680,8 @@ p {
     display: block;
     height: 88px;
     width: 100%;
-    -webkit-box-shadow: 0 -3px 6px -2px rgba(0, 0, 0, 0.2);
-            box-shadow: 0 -3px 6px -2px rgba(0, 0, 0, 0.2);
+    -webkit-box-shadow: 0 -3px 4px -2px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 -3px 4px -2px rgba(0, 0, 0, 0.3);
     border-radius: 8px 8px 0 0;
     padding: 20px;
     overflow: hidden;
@@ -1566,9 +1698,15 @@ p {
     background: linear-gradient(0deg, white 20%, rgba(240, 240, 240, 0) 80%);
     position: absolute;
   }
+  #notes .notesContainer .note .by {
+    color: #ccc;
+    font-style: italic;
+    font-size: 14px;
+    text-overflow: ellipsis;
+  }
   #notes .notesContainer .note h4 {
     text-transform: capitalize;
-    color: #5084eb;
+    color: var(--maincolor);
   }
 }
 
@@ -1581,7 +1719,7 @@ p {
     display: block;
     width: 100%;
     border: 0;
-    background: #f2f2f2;
+    background: #edf2f7;
     color: #707070;
     text-transform: capitalize;
     padding: 8px 20px;
@@ -1615,7 +1753,7 @@ p {
     border-radius: 7px;
     text-align: center;
     text-transform: uppercase;
-    background: #f2f2f2;
+    background: #edf2f7;
     color: #b1b1b1;
     font-weight: 550;
     border: 0;
@@ -1625,7 +1763,7 @@ p {
     transition: all 0.3s ease-in-out;
   }
   .filters button.active {
-    background: #5084eb;
+    background: var(--maincolor);
     color: #ffffff;
   }
   .filters button[name="completed"] {
@@ -1649,7 +1787,7 @@ p {
     right: 24px;
     height: 40px;
     width: 40px;
-    background: #5084eb;
+    background: var(--maincolor);
     border: 0;
     border-radius: 50%;
     -webkit-box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.4);
@@ -1665,6 +1803,9 @@ p {
   #mainButton button.dropButton[name="shareButton"] {
     bottom: 150px;
   }
+  #mainButton button.dropButton[name="quit"] {
+    bottom: 210px;
+  }
   #mainButton #mainButton-main {
     padding: 0;
     position: absolute;
@@ -1672,7 +1813,7 @@ p {
     right: 20px;
     height: 50px;
     width: 50px;
-    background: #5084eb;
+    background: var(--maincolor);
     border: 0;
     border-radius: 50%;
     -webkit-box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.4);
@@ -1690,12 +1831,30 @@ p {
 }
 
 @media (min-width: 320px) {
+  .upperSingleNote {
+    position: fixed;
+    height: 100vh;
+    z-index: 200;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-flow: column wrap;
+            flex-flow: column wrap;
+    width: 100%;
+    opacity: 0;
+    visibility: hidden;
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+  }
   .upperSingleNote #singleNote {
     visibility: hidden;
     opacity: 0;
-    position: fixed;
     width: 90%;
-    max-height: 200px;
+    margin: 20% auto 10px auto;
+    max-height: 35vh;
+    overflow: hidden;
     -webkit-transition: all 0.3s ease-in-out;
     transition: all 0.3s ease-in-out;
     -webkit-box-shadow: 0 1px 2px 1px rgba(0, 0, 0, 0.2);
@@ -1703,70 +1862,18 @@ p {
     border-radius: 8px;
     padding: 20px 20px 10px 20px;
     background: #ffffff;
-    left: 50%;
-    top: 10%;
-    -webkit-transform: translateX(-50%) scale(0.8);
-            transform: translateX(-50%) scale(0.8);
-    z-index: 200;
+    -webkit-transform: scale(0.8);
+            transform: scale(0.8);
+    position: relative;
     -ms-overflow-style: none;
   }
   .upperSingleNote #singleNote::-webkit-scrollbar {
     display: none;
   }
-  .upperSingleNote #singleNote .checkSetp {
-    top: 110%;
-    visibility: hidden;
-    opacity: 0;
-    position: fixed;
-    width: 100%;
-    -webkit-transition: all 0.3s ease-in-out;
-    transition: all 0.3s ease-in-out;
-    -webkit-box-shadow: 0 1px 2px 1px rgba(0, 0, 0, 0.2);
-            box-shadow: 0 1px 2px 1px rgba(0, 0, 0, 0.2);
-    border-radius: 8px;
-    padding: 40px 20px 20px 20px;
-    overflow: auto;
-    background: #ffffff;
-    left: 50%;
-    -webkit-transform: translate(-50%, 20px);
-            transform: translate(-50%, 20px);
-    z-index: 200;
-    text-align: center;
-  }
-  .upperSingleNote #singleNote .checkSetp .barReference {
-    position: relative;
-    width: 100%;
-  }
-  .upperSingleNote #singleNote .checkSetp .barReference .bar {
-    position: absolute;
-    right: 20px;
-    top: -20px;
-    border: 2px solid #ccc;
-    border-radius: 50px;
-    width: 25px;
-  }
-  .upperSingleNote #singleNote .checkSetp p {
-    font-weight: 600;
-    margin-bottom: 20px;
-    font-size: 2vh;
-    -webkit-transition: all 0.3s ease-in-out;
-    transition: all 0.3s ease-in-out;
-  }
-  .upperSingleNote #singleNote .checkSetp .buttons {
-    text-align: center;
-  }
-  .upperSingleNote #singleNote .checkSetp .buttons button {
-    border: 0;
-    height: 30px;
-    width: 30px;
-    border-radius: 50%;
-    margin: auto 20px;
-  }
-  .upperSingleNote #singleNote .checkSetp .buttons button[name="cancel"] {
-    background: #ccc;
-  }
-  .upperSingleNote #singleNote .checkSetp .buttons button[name="delete"] {
-    background: #ff605c;
+  .upperSingleNote #singleNote .by {
+    color: #ccc;
+    font-style: italic;
+    font-size: 13px;
   }
   .upperSingleNote #singleNote .bar {
     position: absolute;
@@ -1775,6 +1882,7 @@ p {
     border: 2px solid #ccc;
     border-radius: 50px;
     width: 25px;
+    cursor: pointer;
   }
   .upperSingleNote #singleNote h4 {
     text-transform: capitalize;
@@ -1799,6 +1907,16 @@ p {
     -webkit-box-shadow: 0 0 0px 3px #bfdeff;
             box-shadow: 0 0 0px 3px #bfdeff;
   }
+  .upperSingleNote #singleNote pre {
+    margin-bottom: 10px;
+    white-space: pre-wrap;
+    max-height: 15vh;
+    overflow: auto;
+    -ms-overflow-style: none;
+  }
+  .upperSingleNote #singleNote pre::-webkit-scrollbar {
+    display: none;
+  }
   .upperSingleNote #singleNote textarea {
     display: block;
     -webkit-margin-before: 1em;
@@ -1817,6 +1935,8 @@ p {
     margin-bottom: 10px;
     width: 100%;
     border-radius: 4px;
+    max-height: 15vh;
+    overflow: auto;
   }
   .upperSingleNote #singleNote textarea:focus {
     -webkit-box-shadow: 0 0 0px 3px #bfdeff;
@@ -1937,6 +2057,59 @@ p {
   .upperSingleNote #singleNote .footer .hiddenActions * {
     margin-left: 15px;
   }
+  .upperSingleNote .checkSetp {
+    visibility: hidden;
+    opacity: 0;
+    margin: 10px auto;
+    width: 90%;
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+    -webkit-box-shadow: 0 1px 2px 1px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 1px 2px 1px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    padding: 40px 20px 20px 20px;
+    overflow: auto;
+    background: #ffffff;
+    text-align: center;
+    -webkit-transform: translateY(20px);
+            transform: translateY(20px);
+  }
+  .upperSingleNote .checkSetp .barReference {
+    position: relative;
+    width: 100%;
+  }
+  .upperSingleNote .checkSetp .barReference .bar {
+    position: absolute;
+    right: 20px;
+    top: -20px;
+    border: 2px solid #ccc;
+    border-radius: 50px;
+    width: 25px;
+    cursor: pointer;
+  }
+  .upperSingleNote .checkSetp p {
+    font-weight: 600;
+    margin-bottom: 20px;
+    font-size: 2vh;
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+  }
+  .upperSingleNote .checkSetp .buttons {
+    text-align: center;
+  }
+  .upperSingleNote .checkSetp .buttons button {
+    border: 0;
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    margin: auto 20px;
+  }
+  .upperSingleNote .checkSetp .buttons button[name="cancel"] {
+    background: #ccc;
+  }
+  .upperSingleNote .checkSetp .buttons button[name="delete"] {
+    background: #ff605c;
+  }
 }
 
 @media (min-width: 320px) {
@@ -1961,7 +2134,7 @@ p {
     z-index: 200;
   }
   #newNote h4 {
-    color: #5084eb;
+    color: var(--maincolor);
     margin-bottom: 0;
   }
   #newNote .bar {
@@ -1971,6 +2144,7 @@ p {
     border: 2px solid #ccc;
     border-radius: 50px;
     width: 25px;
+    cursor: pointer;
   }
 }
 
@@ -1999,6 +2173,7 @@ p {
     border: 2px solid #ccc;
     border-radius: 50px;
     width: 25px;
+    cursor: pointer;
   }
   .shared form {
     margin-top: -20px;
@@ -2024,8 +2199,44 @@ p {
     top: 50%;
   }
   .shared h4 {
-    color: #5084eb;
+    color: var(--maincolor);
     margin: 0;
+  }
+  .shared .shared-list {
+    overflow: auto;
+  }
+  .shared .shared-list .singleMember {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-flow: row wrap;
+            flex-flow: row wrap;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    padding: 10px;
+  }
+  .shared .shared-list .singleMember > div {
+    font-size: 14px;
+  }
+  .shared .shared-list .singleMember:nth-child(odd) {
+    background: #f0f5fd;
+  }
+  .shared .shared-list .singleMember button {
+    border: 0;
+    height: 18px;
+    width: 18px;
+    border-radius: 50%;
+    margin: auto 20px;
+    cursor: pointer;
+  }
+  .shared .shared-list .singleMember button[name="deleteMember"] {
+    background: #ff605c;
   }
 }
 
@@ -2060,9 +2271,9 @@ p {
   display: inline-block;
   -webkit-transform: translateY(2px);
           transform: translateY(2px);
-  margin: 0 10px;
   -webkit-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;
+  margin-left: 10px;
 }
 
 .loading:after {
@@ -2070,7 +2281,7 @@ p {
   display: block;
   width: 10px;
   height: 10px;
-  margin: auto;
+  margin: 0;
   border-radius: 50%;
   border: 2px solid white;
   border-color: white white white transparent;

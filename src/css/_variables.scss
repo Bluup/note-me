@@ -2,7 +2,11 @@
     COLORS
 */
 // ---------> Principal Colors
+:root {
+  --maincolor: #5084eb;
+}
 $primary-color: #5084eb;
+$primary-color2: #f2d184;
 $secondary-color: #fff9e6;
 $accent-color: #f2e635;
 
@@ -13,12 +17,12 @@ $comment: #ccc;
 
 // ---------> Text Color
 $font-color: #ffffff;
-$font-color-dark: #2e2e2e;
+$font-color-dark: #444;
 $font-color-muted: #707070;
 
 // ---------> Bg Color
 $bg-color-dark: #1b1b1b;
-$bg-color-medium: #f2f2f2;
+$bg-color-medium: #edf2f7;
 $bg-color: #ffffff;
 
 /*
@@ -270,12 +274,14 @@ form.pretty {
     margin-bottom: 10px;
 
     label {
-      color: #cdd6e2;
-      font-size: 1.2rem;
+      color: $font-color-dark;
+      font-size: 1rem;
+      font-weight: bold;
       transform: translate(4%, 150%) scale(1);
       @include transition;
       margin: 0;
-      background: $bg-color;
+      background: #f5f6f7;
+      border-radius: 8px 8px 0 0;
       padding: 0 10px;
       display: inline-block;
       transform-origin: left;
@@ -309,15 +315,17 @@ form.pretty {
       margin-top: 0px;
       display: block;
       width: 100%;
-      padding: 15px;
-      border: 1px solid rgb(201, 201, 201);
-      border-radius: 4px;
+      padding: 12px 15px;
+      background: #f5f6f7;
+      border: 0;
+      border-radius: 6px;
       font-size: 13px;
+      color: $font-color-dark;
       @include transition;
+      box-shadow: inset 0px 2px 3px rgba(0, 0, 0, 0.03);
 
       &:focus {
-        box-shadow: 0 0 0px 3px #bfdeff;
-        border: 1px solid #80bdff;
+        box-shadow: 0 0 0px 3px #bfdeff, 0 0 0 1px #80bdff;
       }
     }
   }
