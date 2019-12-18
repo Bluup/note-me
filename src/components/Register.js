@@ -31,7 +31,7 @@ const Register = ({ history }) => {
         });
 
         authentication.login(email.value);
-        history.push("/welcome");
+        history.push("/notes");
       } catch (err) {
         setloading(false);
         error.innerHTML = "There's a problem with the information provided.";
